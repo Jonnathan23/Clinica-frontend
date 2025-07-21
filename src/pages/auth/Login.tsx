@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,26 +10,25 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useForm, Controller } from 'react-hook-form';
-
+import { Link as RouterLink } from 'react-router-dom'
+import { useState } from 'react';
 
 
 import ForgotPassword from '../../components/auth/ForgotPassword';
 import AppTheme from '../../components/shared/AppTheme';
-import { SitemarkIcon } from '../../components/CustomIcons';
 import ColorModeSelect from '../../components/shared/ColorModeSelect';
+import { SitemarkIcon } from '../../components/CustomIcons';
 import { Card, SignInContainer } from './AuthStyles';
 import type { LoginCredentials } from '../../types/auth';
 
 
 
 export default function Login(props: { disableCustomTheme?: boolean }) {
-    const [open, setOpen] = React.useState(false);
+    const [openDialog, setOpenDialog] = useState(false)
     const defaultValues = { email: '', password: '' }
-    const { control, handleSubmit, formState: { errors } } = useForm<LoginCredentials>({ defaultValues });
+    const { control, handleSubmit, formState: { errors } } = useForm<LoginCredentials>({ defaultValues })
 
-    const onSubmit = (data: LoginCredentials) => {
-        console.log(data);
-    };
+    const onSubmit = (credentials: LoginCredentials) => console.log(credentials)
 
     return (
         <AppTheme {...props}>
@@ -39,36 +37,16 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                 <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
                 <Card variant="outlined">
                     <SitemarkIcon />
-                    <Typography
-                        component="h1"
-                        variant="h4"
-                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-                    >
+                    <Typography component="h1" variant="h4" sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
                         Sign in
                     </Typography>
-                    <Box
-                        component="form"
-                        onSubmit={handleSubmit(onSubmit)}
-                        noValidate
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%',
-                            gap: 2,
-                        }}
-                    >
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}>
                         <FormControl>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <Controller
                                 name="email"
                                 control={control}
-                                rules={{
-                                    required: 'Email is required',
-                                    pattern: {
-                                        value: /\S+@\S+\.\S+/,
-                                        message: 'Invalid email format',
-                                    },
-                                }}
+                                rules={{ required: 'Email is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' } }}
                                 render={({ field }) => (
                                     <TextField
                                         {...field}
@@ -91,13 +69,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                             <Controller
                                 name="password"
                                 control={control}
-                                rules={{
-                                    required: 'Password is required',
-                                    minLength: {
-                                        value: 6,
-                                        message: 'Minimum 6 characters',
-                                    },
-                                }}
+                                rules={{ required: 'Password is required', minLength: { value: 6, message: 'Minimum 6 characters' } }}
                                 render={({ field }) => (
                                     <TextField
                                         {...field}
@@ -115,37 +87,22 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                             />
                         </FormControl>
 
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
+                        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
 
-                        <ForgotPassword open={open} handleClose={() => setOpen(false)} />
+                        <ForgotPassword open={openDialog} handleClose={() => setOpenDialog(false)} />
 
-                        <Button type="submit" fullWidth variant="contained">
-                            Sign in
-                        </Button>
+                        <Button type="submit" fullWidth variant="contained">Sign in</Button>
 
-                        <Link
-                            component="button"
-                            type="button"
-                            onClick={() => setOpen(true)}
-                            variant="body2"
-                            sx={{ alignSelf: 'center' }}
-                        >
-                            Forgot your password?
+                        <Link component="button" type="button" onClick={() => setOpenDialog(true)} variant="body2" sx={{ alignSelf: 'center' }}>
+                            Olvidaste tu contraseña?
                         </Link>
                     </Box>
                     <Divider>or</Divider>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Typography sx={{ textAlign: 'center' }}>
-                            Don&apos;t have an account?{' '}
-                            <Link
-                                href="/material-ui/getting-started/templates/sign-in/"
-                                variant="body2"
-                                sx={{ alignSelf: 'center' }}
-                            >
-                                Sign up
+                            No tienes una cuenta?{' '}
+                            <Link component={RouterLink} to="/signup" variant="body2" sx={{ alignSelf: 'center' }}>
+                                Regístrate
                             </Link>
                         </Typography>
                     </Box>
@@ -154,4 +111,3 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
         </AppTheme>
     );
 }
-

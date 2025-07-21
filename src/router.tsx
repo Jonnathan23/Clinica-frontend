@@ -4,6 +4,7 @@ import NotFoundLayout from "./layouts/NotFoundLayout";
 import DatesPage from "./pages/DatesPage";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/SignUp";
 
 export default function Router() {
     return (
@@ -15,6 +16,7 @@ export default function Router() {
 
                 <Route element={<AuthLayout />}>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
                 </Route>
 
                 <Route path="*" element={<NotFoundLayout />} />
