@@ -10,6 +10,8 @@ import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useForm, Controller } from 'react-hook-form';
+
 
 
 import ForgotPassword from '../../components/auth/ForgotPassword';
@@ -17,62 +19,17 @@ import AppTheme from '../../components/shared/AppTheme';
 import { SitemarkIcon } from '../../components/CustomIcons';
 import ColorModeSelect from '../../components/shared/ColorModeSelect';
 import { Card, SignInContainer } from './AuthStyles';
+import type { LoginCredentials } from '../../types/auth';
 
 
 
 export default function Login(props: { disableCustomTheme?: boolean }) {
-    const [emailError, setEmailError] = React.useState(false);
-    const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState(false);
-    const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
     const [open, setOpen] = React.useState(false);
+    const defaultValues = { email: '', password: '' }
+    const { control, handleSubmit, formState: { errors } } = useForm<LoginCredentials>({ defaultValues });
 
-    
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        if (emailError || passwordError) {
-            event.preventDefault();
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
-    const validateInputs = () => {
-        const email = document.getElementById('email') as HTMLInputElement;
-        const password = document.getElementById('password') as HTMLInputElement;
-
-        let isValid = true;
-
-        if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-            setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
-            isValid = false;
-        } else {
-            setEmailError(false);
-            setEmailErrorMessage('');
-        }
-
-        if (!password.value || password.value.length < 6) {
-            setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
-            isValid = false;
-        } else {
-            setPasswordError(false);
-            setPasswordErrorMessage('');
-        }
-
-        return isValid;
+    const onSubmit = (data: LoginCredentials) => {
+        console.log(data);
     };
 
     return (
@@ -91,7 +48,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                     </Typography>
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSubmit(onSubmit)}
                         noValidate
                         sx={{
                             display: 'flex',
@@ -102,55 +59,77 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                     >
                         <FormControl>
                             <FormLabel htmlFor="email">Email</FormLabel>
-                            <TextField
-                                error={emailError}
-                                helperText={emailErrorMessage}
-                                id="email"
-                                type="email"
+                            <Controller
                                 name="email"
-                                placeholder="your@email.com"
-                                autoComplete="email"
-                                autoFocus
-                                required
-                                fullWidth
-                                variant="outlined"
-                                color={emailError ? 'error' : 'primary'}
+                                control={control}
+                                rules={{
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /\S+@\S+\.\S+/,
+                                        message: 'Invalid email format',
+                                    },
+                                }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        id="email"
+                                        type="email"
+                                        placeholder="your@email.com"
+                                        autoComplete="email"
+                                        required
+                                        fullWidth
+                                        variant="outlined"
+                                        error={!!errors.email}
+                                        helperText={errors.email?.message}
+                                    />
+                                )}
                             />
                         </FormControl>
+
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
-                            <TextField
-                                error={passwordError}
-                                helperText={passwordErrorMessage}
+                            <Controller
                                 name="password"
-                                placeholder="••••••"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                autoFocus
-                                required
-                                fullWidth
-                                variant="outlined"
-                                color={passwordError ? 'error' : 'primary'}
+                                control={control}
+                                rules={{
+                                    required: 'Password is required',
+                                    minLength: {
+                                        value: 6,
+                                        message: 'Minimum 6 characters',
+                                    },
+                                }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        id="password"
+                                        type="password"
+                                        placeholder="••••••"
+                                        autoComplete="current-password"
+                                        required
+                                        fullWidth
+                                        variant="outlined"
+                                        error={!!errors.password}
+                                        helperText={errors.password?.message}
+                                    />
+                                )}
                             />
                         </FormControl>
+
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
-                        <ForgotPassword open={open} handleClose={handleClose} />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            onClick={validateInputs}
-                        >
+
+                        <ForgotPassword open={open} handleClose={() => setOpen(false)} />
+
+                        <Button type="submit" fullWidth variant="contained">
                             Sign in
                         </Button>
+
                         <Link
                             component="button"
                             type="button"
-                            onClick={handleClickOpen}
+                            onClick={() => setOpen(true)}
                             variant="body2"
                             sx={{ alignSelf: 'center' }}
                         >
@@ -175,3 +154,4 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
         </AppTheme>
     );
 }
+
