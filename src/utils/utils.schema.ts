@@ -21,6 +21,18 @@ export const dateSchema = object({
 export const allDatesSchema = array(dateSchema)
 
 
+//* |--------------------| | Pacients | |--------------------|
+
+export const pacientSchema = object({
+    cedula: string(),
+    nombres: string(),
+    correo: string(),
+    telefono: string(),
+})
+
+export const allPacientsSchema = array(pacientSchema)
+
+
 //* |--------------------| | Consults | |--------------------|
 export const consultSchema = object({
     cedula_paciente: string(),

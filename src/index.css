@@ -7784,6 +7784,7 @@ p {
 
 .theme-bg {
     background-color: #00ADB5;
+    align-items: center;
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -8987,12 +8988,25 @@ p {
     color: #00ADB5;
 }
 
-.header-top .header-top-left ul li:first-child {
-    margin-right: 35px;
+.header-top .header-top-left {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
 }
 
-.header-top .header-top-left ul li a i {
-    margin-right: 10px;
+.header--list {
+    padding: 1rem 2rem;
+}
+
+.header--link:hover {
+    color: #14898f;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .header-top .header-top-right {
@@ -9413,4 +9427,30 @@ p {
     border-radius: 50%;
     -webkit-box-shadow: 0 0 25px rgba(0, 173, 181, 0.15);
     box-shadow: 0 0 25px rgba(0, 173, 181, 0.15);
+}
+
+
+.main-date {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.container-form {
+    display: flex;
+    width: 100%;
+}
+
+.cont-image-form-date {
+    width: 100%;
+    max-width: 25rem;
+    display: flex;
+    justify-content: center;
+}
+
+.image-form-date {
+    width: 100%;
+}
+
+.message-error {
+    color: red;
 }

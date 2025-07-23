@@ -1,17 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import NotFoundLayout from "./layouts/NotFoundLayout";
-import DatesPage from "./pages/DatesPage";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
+import IndexPage from "./pages/IndexPage";
+import DatesPage from "./pages/DatesPage";
 
 export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<AppLayout />}>
-                    <Route path="/" element={<DatesPage />} />
+                    <Route path="/" element={<IndexPage />} />
+                    <Route path="/save-date" element={<DatesPage />} />
                 </Route>
 
                 <Route element={<AuthLayout />}>
