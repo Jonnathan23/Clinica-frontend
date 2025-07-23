@@ -24,7 +24,7 @@ export default function DatesPage() {
     } as DateForm
     const { register, handleSubmit, formState } = useForm<DateForm>({ defaultValues })
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: reservarCita,
         onSuccess: () => {
             toast.success('Cita agendada')
@@ -82,7 +82,7 @@ export default function DatesPage() {
                             Agendar Cita
                         </h2>
                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                            <DateFormComponent register={register} formState={formState} />
+                            <DateFormComponent register={register} formState={formState} isPending={isPending} />
                         </form>
                     </div>
                     <div className=" cont-image-form-date">

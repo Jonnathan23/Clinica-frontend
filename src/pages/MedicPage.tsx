@@ -5,7 +5,7 @@ import DateFormComponent from "../components/DateFormComponent";
 import type { DateForm, DatePacient } from "../types";
 import { useForm } from "react-hook-form";
 import { agendarCita, getAllDates } from "../service/pacientes.api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import DatesDetails from "../components/DatesDailts";
 
@@ -31,7 +31,10 @@ export default function MedicPage() {
         setChecking(false)
     }, [navigate])
 
+
+
     // React Hook Form
+    /*
     const defaultValues: DateForm = {
         cedula: '0104434456',
         nombres: 'Juanito Alimaña',
@@ -41,13 +44,19 @@ export default function MedicPage() {
         hora: '14:30:00',
         motivo: 'Chequeo general',
     }
-
-    const { register, handleSubmit, formState } = useForm<DateForm>({ defaultValues })
+        */
+    const defaultValues: DateForm = {} as DateForm
+    const { register, handleSubmit, formState, reset } = useForm<DateForm>({ defaultValues })
 
     // Mutation para agendar cita
-    const { mutate } = useMutation({
+    const queryClient = useQueryClient()
+    const { mutate, isPending } = useMutation({
         mutationFn: agendarCita,
-        onSuccess: () => toast.success('Cita agendada'),
+        onSuccess: () => {
+            toast.success('Cita agendada')
+            queryClient.invalidateQueries({ queryKey: ['citas'] })
+            reset()
+        },
         onError: () => toast.error('Error al agendar cita'),
     })
 
@@ -101,7 +110,7 @@ export default function MedicPage() {
                         Agendar Cita
                     </h2>
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <DateFormComponent register={register} formState={formState} />
+                        <DateFormComponent register={register} formState={formState} isPending={isPending} />
                     </form>
                 </div>
 

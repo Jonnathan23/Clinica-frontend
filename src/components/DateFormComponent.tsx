@@ -4,6 +4,7 @@ import type { DateForm } from "../types";
 type DateFormComponentProps = {
     register: UseFormRegister<DateForm>
     formState: FormState<DateForm>
+    isPending: boolean
 }
 
 const brand = {
@@ -13,7 +14,7 @@ const brand = {
 }
 
 
-export default function DateFormComponent({ register, formState: { errors } }: DateFormComponentProps) {
+export default function DateFormComponent({ register, formState: { errors }, isPending }: DateFormComponentProps) {
     return (
         <>
             <div className="mb-4">
@@ -163,8 +164,9 @@ export default function DateFormComponent({ register, formState: { errors } }: D
                     backgroundColor: brand[400],
                     color: brand[50],
                 }}
+                disabled={isPending}
             >
-                Agendar Cita
+                {isPending ? 'Cargando...' : 'Agendar cita'}
             </button>
 
         </>
