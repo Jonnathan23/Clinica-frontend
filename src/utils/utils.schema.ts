@@ -2,7 +2,7 @@ import { array, boolean, number, object, string } from "zod";
 
 //* |--------------------| | User | |--------------------|
 export const userSchema = object({
-    id: string(),
+    id: number(),
     username: string(),
     token: string()
 })

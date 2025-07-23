@@ -1,4 +1,4 @@
-import type { Consult, DateForm } from "../types"
+import type { Consult, DateForm, DatePacient } from "../types"
 import api from "../lib/axios"
 import { allConsultsSchema, allDatesSchema } from "../utils/utils.schema"
 
@@ -40,12 +40,13 @@ export const getAllDates = async () => {
       const response = allDatesSchema.safeParse(data)
       if (!response.success) {
          console.log(response.error)
-         return [] as DateForm[]
+         return [] as DatePacient[]
       }
 
       return response.data
    } catch (error) {
       console.log(error)
+      return [] as DatePacient[]
    }
 }
 

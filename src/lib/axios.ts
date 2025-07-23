@@ -5,6 +5,10 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
+    if (config.url?.endsWith('/auth/login')) {    
+        return config
+    }
+
     const token = localStorage.getItem('AUTH_TOKEN_KEY')
     if (token) {
         // Si no hay headers, los creamos como objeto vacío

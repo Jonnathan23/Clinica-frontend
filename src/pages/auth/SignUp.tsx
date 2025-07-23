@@ -10,18 +10,37 @@ import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useForm, Controller } from 'react-hook-form'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 import AppTheme from '../../components/shared/AppTheme'
 import ColorModeSelect from '../../components/shared/ColorModeSelect'
 import { SitemarkIcon } from '../../components/CustomIcons'
 import { CardSingUp, SignUpContainer } from './AuthStyles'
 import type { RegisterCredentials } from '../../types/auth'
+import { useMutation } from '@tanstack/react-query'
+import { signUpMedic } from '../../service/auth'
+import { toast } from 'react-toastify'
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
     const defaultValues = {} as RegisterCredentials
     const { control, handleSubmit, formState: { errors } } = useForm<RegisterCredentials>({ defaultValues })
-    const onSubmit = (data: RegisterCredentials) => console.log(data)
+    const navigate = useNavigate()
+
+    const { mutate } = useMutation({
+        mutationFn: signUpMedic,
+        onSuccess: () => {
+            toast.success('Cuenta creada')
+            navigate('/login')
+        },
+        onError: () => {
+            toast.error('Error al crear cuenta')
+        },
+    })
+    
+    const onSubmit = (data: RegisterCredentials) => {
+        console.log(data)
+        mutate({ signUpData: data })
+    }
 
     return (
         <AppTheme {...props}>

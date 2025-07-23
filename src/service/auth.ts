@@ -28,7 +28,8 @@ export const signIn = async ({ loginData }: Pick<AuthApy, 'loginData'>) => {
         if (!response.success) {
             throw new Error(response.error.message)
         }
-        return response.data
+        localStorage.setItem('AUTH_TOKEN_KEY', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data))        
     } catch (error) {
         toast.error('Error al registrar')
         console.log(error)
