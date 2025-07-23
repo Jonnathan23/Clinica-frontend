@@ -32,19 +32,6 @@ export default function MedicPage() {
     }, [navigate])
 
 
-
-    // React Hook Form
-    /*
-    const defaultValues: DateForm = {
-        cedula: '0104434456',
-        nombres: 'Juanito Alimaña',
-        correo: 'juanito@gmail.com',
-        telefono: '0989765432',
-        fecha: '2025-07-22',
-        hora: '14:30:00',
-        motivo: 'Chequeo general',
-    }
-        */
     const defaultValues: DateForm = {} as DateForm
     const { register, handleSubmit, formState, reset } = useForm<DateForm>({ defaultValues })
 

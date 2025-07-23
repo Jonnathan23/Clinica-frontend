@@ -24,10 +24,13 @@ export const allDatesSchema = array(dateSchema)
 //* |--------------------| | Pacients | |--------------------|
 
 export const pacientSchema = object({
-    cedula: string(),
-    nombres: string(),
-    correo: string(),
-    telefono: string(),
+    cedula_paciente: string(),
+    diagnostico: string(),
+    tratamiento: string(),
+    observaciones: string(),
+    cita_id: number(),
+    fecha: string(),
+    id: number(),
 })
 
 export const allPacientsSchema = array(pacientSchema)

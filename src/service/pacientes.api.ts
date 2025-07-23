@@ -6,6 +6,7 @@ type AppApi = {
    reservationDate: DateForm
    consultData: Consult
    ci: Consult['cedula_paciente']
+   idDate: DatePacient['id']
 }
 
 //* posts
@@ -52,7 +53,6 @@ export const getAllDates = async () => {
 
 
 //*? Consults
-
 export const createConsult = async ({ consultData }: Pick<AppApi, 'consultData'>) => {
    try {
       const url = `/consultas/`;
@@ -74,6 +74,16 @@ export const getAllConsultsByCI = async ({ ci }: Pick<AppApi, 'ci'>) => {
       }
 
       return response.data
+   } catch (error) {
+      console.log(error)
+   }
+}
+
+
+export const deleteConsult = async ({ idDate }: Pick<AppApi, 'idDate'>) => {
+   try {
+      const url = `/citas/${idDate}`;
+      await api.delete(url);
    } catch (error) {
       console.log(error)
    }

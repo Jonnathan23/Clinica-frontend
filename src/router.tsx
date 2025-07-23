@@ -7,6 +7,7 @@ import SignUp from "./pages/auth/SignUp";
 import IndexPage from "./pages/IndexPage";
 import DatesPage from "./pages/DatesPage";
 import MedicPage from "./pages/MedicPage";
+import ConsultsPage from "./pages/Consults";
 
 export default function Router() {
     return (
@@ -16,6 +17,7 @@ export default function Router() {
                     <Route path="/" element={<IndexPage />} />
                     <Route path="/save-date" element={<DatesPage />} />
                     <Route path="/medic" element={<MedicPage />} />
+                    <Route path="/consults" element={<ConsultsPage />} />
                 </Route>
 
                 <Route element={<AuthLayout />}>

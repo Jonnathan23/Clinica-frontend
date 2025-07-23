@@ -13,21 +13,14 @@ const brand = {
 }
 
 export default function DatesPage() {
-    const defaultValues = {
-        cedula: "0104434456",
-        nombres: "Juanito Alimaña",
-        correo: "juanito@gmail.com",
-        telefono: "0989765432",
-        fecha: "2025-07-22",
-        hora: "14:30:00",
-        motivo: "Chequeo general"
-    } as DateForm
-    const { register, handleSubmit, formState } = useForm<DateForm>({ defaultValues })
+    const defaultValues = {} as DateForm
+    const { register, handleSubmit, formState, reset } = useForm<DateForm>({ defaultValues })
 
     const { mutate, isPending } = useMutation({
         mutationFn: reservarCita,
         onSuccess: () => {
             toast.success('Cita agendada')
+            reset()
         },
         onError: () => {
             toast.error('Error al agendar cita')

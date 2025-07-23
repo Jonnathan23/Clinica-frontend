@@ -1,15 +1,37 @@
 
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import type { DatePacient } from "../types"
 import PatientDetailItem from "./PatientDetailItem"
+import { deleteConsult } from "../service/pacientes.api"
+import { toast } from "react-toastify"
 
 type CitaDetailsProps = {
     cita: DatePacient
-   
+
+}
+const brand = {
+    50: 'hsl(210, 100%, 95%)',
+    200: 'hsl(210, 100%, 80%)',
+    400: '#00ADB5', // tu color principal
 }
 
 
 export default function DatesDetails({ cita }: CitaDetailsProps) {
-    
+    const queryClient = useQueryClient()
+    const { mutate, isPending } = useMutation({
+        mutationFn: deleteConsult,
+        onSuccess: () => {
+            toast.info('Cita eliminada')
+            queryClient.invalidateQueries({ queryKey: ['citas'] })
+        }, onError: () => {
+            toast.error('Error al eliminar cita')
+        }
+    })
+
+    const onDelete = () => {
+        mutate({ idDate: cita.id })
+    }
+
     return (
         <>
             <div className="mx-5 my-10 px-5 py-10 bg-white shadow-md rounded-xl">
@@ -24,7 +46,21 @@ export default function DatesDetails({ cita }: CitaDetailsProps) {
                     label="Agendada por Médico"
                     detail={cita.agendada_por_medico ? 'Sí' : 'No'}
                 />
-               
+
+                <div className="flex flex-col lg:flex-row justify-between gap-3 mt-10">
+                    <button
+                        type="button"
+                        className="py-2 px-10 font-bold uppercase rounded-lg cursor-pointer"
+                        style={{
+                            backgroundColor: brand[400],
+                            color: brand[50],
+                        }}
+                        onClick={() => onDelete()}
+                        disabled={isPending}
+                    >
+                        {isPending ? 'Eliminando...' : 'Eliminar'}
+                    </button>
+                </div>
             </div>
         </>
     );
