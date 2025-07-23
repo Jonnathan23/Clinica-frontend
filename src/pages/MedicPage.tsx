@@ -84,7 +84,7 @@ export default function MedicPage() {
                                         <ul className="flex justify-end">
                                             <li>
                                                 <Link
-                                                    className="text-white hover:underline"
+                                                    className="text-white hover:underline mr-4"
                                                     to="/"
                                                     onClick={() => localStorage.clear()}
                                                 >
