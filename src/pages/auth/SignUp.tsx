@@ -19,7 +19,7 @@ import { CardSingUp, SignUpContainer } from './AuthStyles'
 import type { RegisterCredentials } from '../../types/auth'
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
-    const defaultValues = { name: '', email: '', password: '' }
+    const defaultValues = {} as RegisterCredentials
     const { control, handleSubmit, formState: { errors } } = useForm<RegisterCredentials>({ defaultValues })
     const onSubmit = (data: RegisterCredentials) => console.log(data)
 
@@ -37,7 +37,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                         <FormControl>
                             <FormLabel htmlFor="name">Full name</FormLabel>
                             <Controller
-                                name="name"
+                                name="username"
                                 control={control}
                                 rules={{ required: 'Name is required' }}
                                 render={({ field }) => (
@@ -49,39 +49,18 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                         required
                                         fullWidth
                                         variant="outlined"
-                                        error={!!errors.name}
-                                        helperText={errors.name?.message}
+                                        error={!!errors.username}
+                                        helperText={errors.username?.message}
                                     />
                                 )}
                             />
                         </FormControl>
 
-                        <FormControl>
-                            <FormLabel htmlFor="email">Email</FormLabel>
-                            <Controller
-                                name="email"
-                                control={control}
-                                rules={{ required: 'Email is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' } }}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        id="email"
-                                        placeholder="your@email.com"
-                                        autoComplete="email"
-                                        required
-                                        fullWidth
-                                        variant="outlined"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
 
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
                             <Controller
-                                name="password"
+                                name="password_hash"
                                 control={control}
                                 rules={{ required: 'Password is required', minLength: { value: 6, message: 'Minimum 6 characters' } }}
                                 render={({ field }) => (
@@ -94,8 +73,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                         required
                                         fullWidth
                                         variant="outlined"
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
+                                        error={!!errors.password_hash}
+                                        helperText={errors.password_hash?.message}
                                     />
                                 )}
                             />

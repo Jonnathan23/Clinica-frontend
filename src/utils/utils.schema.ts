@@ -43,3 +43,5 @@ export const consultSchema = object({
     fecha: string(),
     id: number(),
 })
+
+export const allConsultsSchema = array(consultSchema)

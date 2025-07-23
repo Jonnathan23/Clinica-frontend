@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { DateForm } from "../types";
 import DateFormComponent from "../components/DateFormComponent";
+import { useMutation } from "@tanstack/react-query";
+import { reservarCita } from "../service/pacientes.api";
+import { toast } from "react-toastify";
 
 const brand = {
     50: 'hsl(210, 100%, 95%)',
@@ -10,12 +13,30 @@ const brand = {
 }
 
 export default function DatesPage() {
-    const defaultValues = {} as DateForm
+    const defaultValues = {
+        cedula: "0104434456",
+        nombres: "Juanito Alimaña",
+        correo: "juanito@gmail.com",
+        telefono: "0989765432",
+        fecha: "2025-07-22",
+        hora: "14:30:00",
+        motivo: "Chequeo general"
+    } as DateForm
     const { register, handleSubmit, formState } = useForm<DateForm>({ defaultValues })
+
+    const { mutate } = useMutation({
+        mutationFn: reservarCita,
+        onSuccess: () => {
+            toast.success('Cita agendada')
+        },
+        onError: () => {
+            toast.error('Error al agendar cita')
+        },
+    })
 
     const onSubmit = (data: DateForm) => {
         console.log(data)
-        console.log('Submit')
+        mutate({ reservationDate: data })
     }
 
     return (
