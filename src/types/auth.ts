@@ -1,10 +1,14 @@
+import type z from "zod";
+import type { userSchema } from "../utils/utils.schema";
+
 export type LoginCredentials = {
-    email: string;
+    username: string;
     password: string;
 };
 
 export type RegisterCredentials = {
-    name: string;
-    email: string;
-    password: string;
+    username: string;
+    password_hash: string;
 };
+
+export type User = z.infer<typeof userSchema>;

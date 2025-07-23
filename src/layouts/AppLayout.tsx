@@ -1,8 +1,12 @@
+import { Outlet } from "react-router-dom";
+import Header from "../components/Header";
 
 export default function AppLayout() {
     return (
-        <>
-            <h1>App Layout</h1>
-        </>
+        <div className="app-layout">
+            <Header />
+            <Outlet />            
+
+        </div>
     );
 }

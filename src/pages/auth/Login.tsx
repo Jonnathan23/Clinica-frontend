@@ -42,30 +42,30 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}>
                         <FormControl>
-                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormLabel htmlFor="username">Usuario</FormLabel>
                             <Controller
-                                name="email"
+                                name="username"
                                 control={control}
-                                rules={{ required: 'Email is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' } }}
+                                rules={{ required: 'Nombre de usuario requerido'}}
                                 render={({ field }) => (
                                     <TextField
                                         {...field}
-                                        id="email"
-                                        type="email"
-                                        placeholder="your@email.com"
-                                        autoComplete="email"
+                                        id="username"
+                                        type="username"
+                                        placeholder="Ej. Daniel Harman"
+                                        autoComplete="username"
                                         required
                                         fullWidth
                                         variant="outlined"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
+                                        error={!!errors.username}
+                                        helperText={errors.username?.message}
                                     />
                                 )}
                             />
                         </FormControl>
 
                         <FormControl>
-                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormLabel htmlFor="password">Contraseña</FormLabel>
                             <Controller
                                 name="password"
                                 control={control}
@@ -90,12 +90,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
 
                         <ForgotPassword open={openDialog} handleClose={() => setOpenDialog(false)} />
-
                         <Button type="submit" fullWidth variant="contained">Sign in</Button>
-
-                        <Link component="button" type="button" onClick={() => setOpenDialog(true)} variant="body2" sx={{ alignSelf: 'center' }}>
-                            Olvidaste tu contraseña?
-                        </Link>
                     </Box>
                     <Divider>or</Divider>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -103,6 +98,11 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
                             No tienes una cuenta?{' '}
                             <Link component={RouterLink} to="/signup" variant="body2" sx={{ alignSelf: 'center' }}>
                                 Regístrate
+                            </Link>
+                        </Typography>
+                        <Typography sx={{ textAlign: 'center' }}>                            
+                            <Link component={RouterLink} to="/" variant="body2" sx={{ alignSelf: 'center' }}>
+                                Volver al inicio
                             </Link>
                         </Typography>
                     </Box>
