@@ -1,5 +1,5 @@
 import type z from "zod"
-import type { consultSchema, dateSchema, pacientSchema } from "../utils/utils.schema"
+import type { consultSchema, dateSchema, factureSchema, pacientSchema } from "../utils/utils.schema"
 
 export type DateForm = {
     cedula: string
@@ -25,10 +25,10 @@ export type ConsultForm = Pick<Consult, "cedula_paciente" | "diagnostico" | "tra
 
 
 //* Facturas
-export type FacturaForm = {
-    cedula_paciente: string
+export type Facture = z.infer<typeof factureSchema>
+
+export type FactureForm = Pick<ConsultForm, 'cedula_paciente' | 'fecha'> & {
     valor: string
     descripcion: string
-    consulta_id: string
-    fecha: string
+    consulta_id: Consult['id']
 }

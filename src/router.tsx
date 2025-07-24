@@ -8,6 +8,7 @@ import IndexPage from "./pages/IndexPage";
 import DatesPage from "./pages/DatesPage";
 import MedicPage from "./pages/MedicPage";
 import ConsultsPage from "./pages/Consults";
+import FacturePage from "./pages/FacturePage";
 
 export default function Router() {
     return (
@@ -18,6 +19,7 @@ export default function Router() {
                     <Route path="/save-date" element={<DatesPage />} />
                     <Route path="/medic" element={<MedicPage />} />
                     <Route path="/consults" element={<ConsultsPage />} />
+                    <Route path="/factures" element={<FacturePage />} />
                 </Route>
 
                 <Route element={<AuthLayout />}>

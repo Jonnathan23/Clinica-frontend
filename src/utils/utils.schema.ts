@@ -48,3 +48,16 @@ export const consultSchema = object({
 })
 
 export const allConsultsSchema = array(consultSchema)
+
+//* |--------------------| | Factures | |--------------------|
+
+export const factureSchema = object({
+    cedula_paciente: string(),
+    valor: number(),
+    descripcion: string(),
+    consulta_id: number(),
+    fecha: string(),
+    id: number(),
+})
+
+export const allFacturesSchema = array(factureSchema)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, } from "react-router-dom";
+import {  useNavigate, } from "react-router-dom";
 import type { User } from "../types/auth";
 import type { ConsultForm, Pacient } from "../types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import ConsultFormData from "../components/ConsultForm";
 import { toast } from "react-toastify";
 import ConsultDetails from "../components/ConsultDetails";
 import Preloader from "../components/Preloader";
+import Header from "../components/Header";
 
 const brand = {
     50: 'hsl(210, 100%, 95%)',
@@ -70,37 +71,7 @@ export default function ConsultsPage() {
     if (checking) return <Preloader />
     return (
         <>
-            <header id="home" className="relative">
-                <div className="header-wrapper">
-                    <div className="header-top theme-bg">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-8">
-                                    <div className="header-top-left text-center text-md-left">
-                                        <ul className="flex justify-end">
-                                            <li>
-                                                <Link
-                                                    className="text-white hover:underline mr-4"
-                                                    to="/medic"
-                                                >
-                                                    Citas
-                                                </Link>
-                                                <Link
-                                                    className="text-white hover:underline mr-4"
-                                                    to="/"
-                                                    onClick={() => localStorage.clear()}
-                                                >
-                                                    Cerrar Sesión
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <Header />
 
             <main
                 className="min-h-screen flex flex-col md:flex-row px-4 py-6"
@@ -172,7 +143,7 @@ export default function ConsultsPage() {
                             >
                                 No hay consultas
                             </h2>
-                            {isLoading ? <p>Cargando...</p> :
+                            {isLoading ? <p className="text-xl mt-2 mb-8 text-center">Cargando...</p> :
                                 <p className="text-xl mt-2 mb-8 text-center">
                                     Busca una cédula para ver las{' '}
                                     <span style={{ color: brand[400] }}>consultas</span>

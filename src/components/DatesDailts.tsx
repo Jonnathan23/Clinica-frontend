@@ -71,7 +71,7 @@ export default function DatesDetails({ cita }: CitaDetailsProps) {
 
                     <button
                         type="button"
-                        className="py-2 px-10 font-bold uppercase rounded-lg cursor-pointer"
+                        className="py-2 px-10 font-bold uppercase rounded-lg cursor-pointer disabled:opacity-50 "
                         style={{
                             backgroundColor: brand[400],
                             color: brand[50],

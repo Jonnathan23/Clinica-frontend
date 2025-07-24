@@ -1,18 +1,17 @@
 import type { FormState, UseFormRegister } from "react-hook-form";
 import type { DateForm } from "../types";
 
-type DateFormComponentProps = {
-    register: UseFormRegister<DateForm>
-    formState: FormState<DateForm>
-    isPending: boolean
-}
-
 const brand = {
     50: 'hsl(210, 100%, 95%)',
     200: 'hsl(210, 100%, 80%)',
     400: '#00ADB5',
 }
 
+type DateFormComponentProps = {
+    register: UseFormRegister<DateForm>
+    formState: FormState<DateForm>
+    isPending: boolean
+}
 
 export default function DateFormComponent({ register, formState: { errors }, isPending }: DateFormComponentProps) {
     return (
@@ -159,7 +158,7 @@ export default function DateFormComponent({ register, formState: { errors }, isP
 
             <button
                 type="submit"
-                className="w-full py-3 rounded font-medium transition"
+                className="w-full py-3 rounded font-medium transition cursor-pointer hover:opacity-80 disabled:opacity-50"
                 style={{
                     backgroundColor: brand[400],
                     color: brand[50],

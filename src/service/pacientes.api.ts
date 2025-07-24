@@ -1,12 +1,14 @@
-import type { Consult, ConsultForm, DateForm, DatePacient } from "../types"
+import type { Consult, ConsultForm, DateForm, DatePacient, Facture, FactureForm } from "../types"
 import api from "../lib/axios"
-import { allConsultsSchema, allDatesSchema, consultSchema } from "../utils/utils.schema"
+import { allConsultsSchema, allDatesSchema, allFacturesSchema, consultSchema, factureSchema } from "../utils/utils.schema"
 
 type AppApi = {
    reservationDate: DateForm
    consultData: ConsultForm
    ci: Consult['cedula_paciente']
    idDate: DatePacient['id']
+   factureData: FactureForm
+   factureId: Facture['id']
 }
 
 //* posts
@@ -89,6 +91,49 @@ export const deleteConsult = async ({ idDate }: Pick<AppApi, 'idDate'>) => {
    try {
       const url = `/citas/${idDate}`;
       await api.delete(url);
+   } catch (error) {
+      console.log(error)
+   }
+}
+
+
+//*? Fatura
+export const createFacture = async ({ factureData }: Pick<AppApi, 'factureData'>) => {
+   try {
+      const url = `/facturas/`;
+      await api.post(url, factureData);
+   } catch (error) {
+      console.log(error)
+   }
+}
+
+export const getAllFactures = async () => {
+   try {
+      const url = `/facturas/`;
+      const { data } = await api.get(url);
+      const response = allFacturesSchema.safeParse(data)
+      if (!response.success) {
+         return [] as Facture[]
+      }
+
+      return response.data
+   } catch (error) {
+      console.log(error)
+      return [] as Facture[]
+   }
+}
+
+
+export const getFactureById = async ({ factureId }: Pick<AppApi, 'factureId'>) => {
+   try {
+      const url = `/facturas/${factureId}`;
+      const { data } = await api.get(url);
+      const response = factureSchema.safeParse(data)
+      if (!response.success) {
+         return {} as Facture
+      }
+
+      return response.data
    } catch (error) {
       console.log(error)
    }
