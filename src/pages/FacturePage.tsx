@@ -42,7 +42,7 @@ export default function FacturePage() {
         enabled: !!user
     })
     const queryClient = useQueryClient()
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: createFacture,
         onSuccess: () => {
             toast.success('Factura creada')
@@ -74,7 +74,7 @@ export default function FacturePage() {
                         <FactureFormComponent
                             register={register}
                             formState={formState}
-                            isPending={isLoading}
+                            isPending={isPending}
                             setValue={setValue}
                         />
                     </form>
