@@ -16,8 +16,7 @@ Traumatología es una aplicación web diseñada para gestionar y seguir las cons
 
 ## Tecnología utilizada
 - **Frontend:** React, Material-UI, CSS  
-- **Backend:** Node.js, Express, MongoDB  
-- **Despliegue:** Vite, GitHub Pages
+- **Backend:** FastApi, Postgresql 
 
 ## Empezando
 Para poner en marcha el proyecto localmente, sigue estos pasos:
