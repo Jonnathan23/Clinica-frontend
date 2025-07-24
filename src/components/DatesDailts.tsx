@@ -4,6 +4,7 @@ import type { DatePacient } from "../types"
 import PatientDetailItem from "./PatientDetailItem"
 import { deleteConsult } from "../service/pacientes.api"
 import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 type CitaDetailsProps = {
     cita: DatePacient
@@ -17,6 +18,8 @@ const brand = {
 
 
 export default function DatesDetails({ cita }: CitaDetailsProps) {
+    const navigate = useNavigate()
+
     const queryClient = useQueryClient()
     const { mutate, isPending } = useMutation({
         mutationFn: deleteConsult,
@@ -31,6 +34,11 @@ export default function DatesDetails({ cita }: CitaDetailsProps) {
     const onDelete = () => {
         mutate({ idDate: cita.id })
     }
+
+    const generateConsult = () => {
+        navigate(`/consults?dateId=${cita.id}&cedula_paciente=${cita.cedula_paciente}`)
+    }
+
 
     return (
         <>
@@ -48,6 +56,19 @@ export default function DatesDetails({ cita }: CitaDetailsProps) {
                 />
 
                 <div className="flex flex-col lg:flex-row justify-between gap-3 mt-10">
+                    <button
+                        type="button"
+                        className="py-2 px-10 font-bold uppercase rounded-lg cursor-pointer"
+                        style={{
+                            backgroundColor: brand[400],
+                            color: brand[50],
+                        }}
+                        onClick={generateConsult}
+                        disabled={isPending}
+                    >
+                        Generar Consulta
+                    </button>
+
                     <button
                         type="button"
                         className="py-2 px-10 font-bold uppercase rounded-lg cursor-pointer"

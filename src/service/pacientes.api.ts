@@ -1,10 +1,10 @@
-import type { Consult, DateForm, DatePacient } from "../types"
+import type { Consult, ConsultForm, DateForm, DatePacient } from "../types"
 import api from "../lib/axios"
-import { allConsultsSchema, allDatesSchema } from "../utils/utils.schema"
+import { allConsultsSchema, allDatesSchema, consultSchema } from "../utils/utils.schema"
 
 type AppApi = {
    reservationDate: DateForm
-   consultData: Consult
+   consultData: ConsultForm
    ci: Consult['cedula_paciente']
    idDate: DatePacient['id']
 }
@@ -56,8 +56,13 @@ export const getAllDates = async () => {
 export const createConsult = async ({ consultData }: Pick<AppApi, 'consultData'>) => {
    try {
       const url = `/consultas/`;
-      await api.post(url, consultData);
-      return "Cita reservada exitosamente"
+      const { data } = await api.post(url, consultData);
+      const response = consultSchema.safeParse(data)
+      if (!response.success) {
+         return null
+      }
+
+      return response.data
    } catch (error) {
       console.log(error)
    }

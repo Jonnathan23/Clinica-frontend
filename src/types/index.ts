@@ -14,10 +14,21 @@ export type DateForm = {
 
 //* Pacientes
 export type Pacient = z.infer<typeof pacientSchema>
-
+export type PacientForm = Pick<Pacient, "cedula_paciente" | "diagnostico" | "tratamiento" | "observaciones" | "cita_id" | "fecha">
 
 //* Citas / Agendamientos
 export type DatePacient = z.infer<typeof dateSchema>
 
 //* Consultas
 export type Consult = z.infer<typeof consultSchema>
+export type ConsultForm = Pick<Consult, "cedula_paciente" | "diagnostico" | "tratamiento" | "observaciones" | "cita_id" | "fecha">
+
+
+//* Facturas
+export type FacturaForm = {
+    cedula_paciente: string
+    valor: string
+    descripcion: string
+    consulta_id: string
+    fecha: string
+}

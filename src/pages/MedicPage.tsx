@@ -72,11 +72,18 @@ export default function MedicPage() {
                                             <li>
                                                 <Link
                                                     className="text-white hover:underline mr-4"
+                                                    to="/consults"
+                                                >
+                                                    Consultas
+                                                </Link>
+                                                <Link
+                                                    className="text-white hover:underline mr-4"
                                                     to="/"
                                                     onClick={() => localStorage.clear()}
                                                 >
                                                     Cerrar Sesión
                                                 </Link>
+
                                             </li>
                                         </ul>
                                     </div>
@@ -105,7 +112,7 @@ export default function MedicPage() {
                 <div
                     className="w-full md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll px-4"
                     style={{ backgroundColor: brand[50] }}
-                >
+                >                    
                     {citas?.length ? (
                         <>
                             <h2
