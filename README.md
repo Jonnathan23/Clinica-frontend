@@ -3,8 +3,6 @@
 ## Descripción general
 Traumatología es una aplicación web diseñada para gestionar y seguir las consultas de pacientes, citas y registros médicos. El proyecto tiene como objetivo proporcionar una plataforma fácil de usar y eficiente para que los profesionales médicos gestionen sus tareas diarias y mejoren la atención al paciente.
 
-## Historia
-El proyecto **Traumatología** fue iniciado por _[Tu nombre u Organización]_ en _[Año]_ con el objetivo de crear un sistema de gestión médica integral e intuitivo. Actualmente está mantenido y desarrollado por _[Tu nombre u Organización]_ y está abierto a contribuciones de la comunidad.
 
 ## Características
 - **Gestión de pacientes**  
