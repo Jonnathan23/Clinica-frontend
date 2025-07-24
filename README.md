@@ -1,69 +1,39 @@
-# React + TypeScript + Vite
+# Proyecto Traumatología
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción general
+Traumatología es una aplicación web diseñada para gestionar y seguir las consultas de pacientes, citas y registros médicos. El proyecto tiene como objetivo proporcionar una plataforma fácil de usar y eficiente para que los profesionales médicos gestionen sus tareas diarias y mejoren la atención al paciente.
 
-Currently, two official plugins are available:
+## Historia
+El proyecto **Traumatología** fue iniciado por _[Tu nombre u Organización]_ en _[Año]_ con el objetivo de crear un sistema de gestión médica integral e intuitivo. Actualmente está mantenido y desarrollado por _[Tu nombre u Organización]_ y está abierto a contribuciones de la comunidad.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Características
+- **Gestión de pacientes**  
+  Crear, editar y gestionar perfiles de pacientes, incluyendo historial médico e información de contacto.
+- **Programación de citas**  
+  Programar y gestionar citas, incluyendo recordatorios y notificaciones.
+- **Gestión de consultas**  
+  Seguimiento de consultas de pacientes, con diagnósticos, tratamientos y citas de seguimiento.
+- **Gestión de registros médicos**  
+  Almacenamiento y gestión de resultados de pruebas, recetas e imágenes médicas.
 
-## Expanding the ESLint configuration
+## Tecnología utilizada
+- **Frontend:** React, Material-UI, CSS  
+- **Backend:** Node.js, Express, MongoDB  
+- **Despliegue:** Vite, GitHub Pages
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Empezando
+Para poner en marcha el proyecto localmente, sigue estos pasos:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Clona el repositorio  
+```bash
+git clone https://github.com/tu-usuario/traumatologia.git
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+npm run dev
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Abre tu aplicacion en el
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+http://localhost:5173/
