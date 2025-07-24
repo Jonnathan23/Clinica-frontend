@@ -10,18 +10,37 @@ import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useForm, Controller } from 'react-hook-form'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 import AppTheme from '../../components/shared/AppTheme'
 import ColorModeSelect from '../../components/shared/ColorModeSelect'
 import { SitemarkIcon } from '../../components/CustomIcons'
 import { CardSingUp, SignUpContainer } from './AuthStyles'
 import type { RegisterCredentials } from '../../types/auth'
+import { useMutation } from '@tanstack/react-query'
+import { signUpMedic } from '../../service/auth'
+import { toast } from 'react-toastify'
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
-    const defaultValues = { name: '', email: '', password: '' }
+    const defaultValues = {} as RegisterCredentials
     const { control, handleSubmit, formState: { errors } } = useForm<RegisterCredentials>({ defaultValues })
-    const onSubmit = (data: RegisterCredentials) => console.log(data)
+    const navigate = useNavigate()
+
+    const { mutate } = useMutation({
+        mutationFn: signUpMedic,
+        onSuccess: () => {
+            toast.success('Cuenta creada')
+            navigate('/login')
+        },
+        onError: () => {
+            toast.error('Error al crear cuenta')
+        },
+    })
+    
+    const onSubmit = (data: RegisterCredentials) => {
+        console.log(data)
+        mutate({ signUpData: data })
+    }
 
     return (
         <AppTheme {...props}>
@@ -37,7 +56,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                         <FormControl>
                             <FormLabel htmlFor="name">Full name</FormLabel>
                             <Controller
-                                name="name"
+                                name="username"
                                 control={control}
                                 rules={{ required: 'Name is required' }}
                                 render={({ field }) => (
@@ -49,39 +68,18 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                         required
                                         fullWidth
                                         variant="outlined"
-                                        error={!!errors.name}
-                                        helperText={errors.name?.message}
+                                        error={!!errors.username}
+                                        helperText={errors.username?.message}
                                     />
                                 )}
                             />
                         </FormControl>
 
-                        <FormControl>
-                            <FormLabel htmlFor="email">Email</FormLabel>
-                            <Controller
-                                name="email"
-                                control={control}
-                                rules={{ required: 'Email is required', pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email format' } }}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        id="email"
-                                        placeholder="your@email.com"
-                                        autoComplete="email"
-                                        required
-                                        fullWidth
-                                        variant="outlined"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
 
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
                             <Controller
-                                name="password"
+                                name="password_hash"
                                 control={control}
                                 rules={{ required: 'Password is required', minLength: { value: 6, message: 'Minimum 6 characters' } }}
                                 render={({ field }) => (
@@ -94,8 +92,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                         required
                                         fullWidth
                                         variant="outlined"
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
+                                        error={!!errors.password_hash}
+                                        helperText={errors.password_hash?.message}
                                     />
                                 )}
                             />
